@@ -3,8 +3,7 @@ const canvas = document.querySelector('canvas');
 canvas.width = innerWidth
 canvas.height=innerHeight
 
-const background = new Image();
-background.src = "logo.jpg";
+
 
 const c = canvas.getContext('2d')
 
@@ -12,6 +11,11 @@ const scoreEl = document.querySelector('#scoreEl')
 const startGameBtn = document.querySelector('#startGameBtn')
 const modalEl = document.querySelector('#modalEl')
 const bigScoreEl = document.querySelector('#bigScoreEl')
+
+const audio = new Audio("laser-sound.wav");
+const background =new Audio("background.mp3")
+
+const gameover = new Audio("gameover.wav")
 
 class Player{
     constructor(x,y,radius,color){
@@ -155,6 +159,7 @@ function animate(){
     
     player.draw()
 
+    background.play()
     particles.forEach((particle,index) => {
         if(particle.alpha <= 0){
             particles.slice(index,1)
@@ -176,7 +181,14 @@ function animate(){
         const dist = Math.hypot(player.x - enemy.x,player.y - enemy.y)
         if(dist - player.radius - enemy.radius < 1){
             cancelAnimationFrame(animationId)
+            
+                audio.pause()
+            background.pause()
+            
+            
+            gameover.play()
             modalEl.style.display = 'flex'
+            
             bigScoreEl.innerHTML = score
             clearInterval(myInterval)
             
@@ -205,6 +217,7 @@ function animate(){
                 }else{
                     score += 250
                     scoreEl.innerHTML = score
+                   
                     setTimeout(()=>{
                         enemies.splice(index,1)
                         projectiles.splice(projectileIndex,1)
@@ -230,6 +243,7 @@ window.addEventListener('click',(event)=> {
         y: Math.sin(angle) * 5
    }
    projectiles.push(new Projectile (canvas.width / 2, canvas.height / 2,5,'white',velocity))
+   audio.play()
 }
 )
 
@@ -237,6 +251,7 @@ window.addEventListener('click',(event)=> {
 startGameBtn.addEventListener('click',()=> {
 
    
+    
     init()
     modalEl.style.display = 'none';
     animate();
