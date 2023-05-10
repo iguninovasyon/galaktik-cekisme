@@ -9,11 +9,17 @@ const scoreEl = document.querySelector('#scoreEl')
 const startGameBtn = document.querySelector('#startGameBtn')
 const modalEl = document.querySelector('#modalEl')
 const bigScoreEl = document.querySelector('#bigScoreEl')
-const school_no = document.querySelector('#school_no')
+const game_over = document.querySelector('#game_over')
+
+const name_surname = document.querySelector('#name_surname')
+const  player_number= document.querySelector('#school_no')
+const  player_name= document.querySelector('#player_name')
+const  player_email= document.querySelector('#email')
+
+const gameStart = document.querySelector('#gameStartBtn')
 
 const audio = new Audio("assets/sounds/laser-sound.wav");
 const background = new Audio("assets/sounds/background.mp3")
-
 const gameover = new Audio("assets/sounds/gameover.wav")
 
 class Player {
@@ -147,9 +153,58 @@ class Particle {
 }
 
 
+
+
+let player_score
+let isOver
 let myInterval
 let animationId
 let score = 0
+let namee =""
+let isClicked = false
+let id= 0
+
+
+
+startGameBtn.addEventListener('click', () => {
+
+
+    isOver=false
+    isClicked = true
+    init()
+    modalEl.style.display = 'none';
+    animate();
+
+    myInterval = setInterval(() => {
+
+        const radius = Math.random() * (30 - 4) + 4
+
+        let x
+        let y
+
+        if (Math.random() < 0.5) {
+            x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius
+            y = Math.random() * canvas.height
+        } else {
+            x = Math.random() * canvas.width
+            y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
+        }
+
+        const color = `hsl(${Math.random() * 360},50%,50%)`
+        const angle = Math.atan2(
+            canvas.height / 2 - y,
+            canvas.width / 2 - x
+        )
+
+        const velocity = {
+            x: Math.cos(angle),
+            y: Math.sin(angle)
+        }
+        enemies.push(new Enemy(x, y, radius, color, velocity))
+
+    }, 1000)
+
+ 
 function animate() {
     animationId = requestAnimationFrame(animate)
 
@@ -181,15 +236,25 @@ function animate() {
         if (dist - player.radius - enemy.radius < 1) {
             cancelAnimationFrame(animationId)
 
-            audio.pause()
-            background.pause()
-
-
+            setInterval(()=> {
+                audio.pause()
+                background.pause()
+                
+            },0)
+            
             gameover.play()
-            modalEl.style.display = 'flex'
+            
 
-            bigScoreEl.innerHTML = score
+            
+
             clearInterval(myInterval)
+            isOver=true
+            game_over.style.display = "flex"
+            
+            player_name.innerHTML= name_surname.value;
+            document.getElementById('player_score').innerHTML=score;
+            
+           
 
         }
         projectiles.forEach((projectile, projectileIndex) => {
@@ -231,6 +296,7 @@ function animate() {
 
 }
 
+
 window.addEventListener('click', (event) => {
 
     const angle = Math.atan2(
@@ -243,52 +309,34 @@ window.addEventListener('click', (event) => {
         y: Math.sin(angle) * 5
     }
     projectiles.push(new Projectile(canvas.width / 2, canvas.height / 2, 5, 'white', velocity))
-    audio.play()
+    if(isClicked){
+        
+            audio.play()
+        
+       
+    }
+    
 }
 )
 
 
-startGameBtn.addEventListener('click', () => {
-
-
-
-    init()
-    modalEl.style.display = 'none';
-    animate();
-
-    myInterval = setInterval(() => {
-
-        const radius = Math.random() * (30 - 4) + 4
-
-        let x
-        let y
-
-        if (Math.random() < 0.5) {
-            x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius
-            y = Math.random() * canvas.height
-        } else {
-            x = Math.random() * canvas.width
-            y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
-        }
-
-        const color = `hsl(${Math.random() * 360},50%,50%)`
-        const angle = Math.atan2(
-            canvas.height / 2 - y,
-            canvas.width / 2 - x
-        )
-
-        const velocity = {
-            x: Math.cos(angle),
-            y: Math.sin(angle)
-        }
-        enemies.push(new Enemy(x, y, radius, color, velocity))
-
-    }, 1000)
-
-
 })
 
 
+
+gameStart.addEventListener('click',()=> {
+    const player={
+        email:player_email.value,
+        name: name_surname.value,
+        numara:player_number.value,
+        score:player_score
+    }
+    localStorage.setItem(Date.now(),JSON.stringify(player))
+    location.reload()
+   
+})
 school_no.addEventListener('input', () => {
     school_no.value = school_no.value.replace(/[^0-9]/g, '')
 })
+
+
