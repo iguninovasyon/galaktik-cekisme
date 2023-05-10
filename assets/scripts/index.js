@@ -50,6 +50,7 @@ let enemies = []
 let particles = []
 
 
+
 function init() {
 
     player = new Player(x, y, 10, 'white')
@@ -164,11 +165,16 @@ let namee =""
 let isClicked = false
 let id= 0
 
+let player_info = {}
 
 
 startGameBtn.addEventListener('click', () => {
 
+    if(name_surname.value.length ===0 || player_number.value.length === 0){
 
+        alert("Lütfen İsminizi ve Numaranızı giriniz!!!")
+    }else{
+        
     isOver=false
     isClicked = true
     init()
@@ -250,7 +256,14 @@ function animate() {
             clearInterval(myInterval)
             isOver=true
             game_over.style.display = "flex"
-            
+            player_info={
+                name:name_surname.value,
+                number:player_number.value,
+                score:score,
+                email:""
+               
+            }
+         
             player_name.innerHTML= name_surname.value;
             document.getElementById('player_score').innerHTML=score;
             
@@ -318,6 +331,8 @@ window.addEventListener('click', (event) => {
     
 }
 )
+    }
+
 
 
 })
@@ -325,13 +340,13 @@ window.addEventListener('click', (event) => {
 
 
 gameStart.addEventListener('click',()=> {
-    const player={
-        email:player_email.value,
-        name: name_surname.value,
-        numara:player_number.value,
-        score:player_score
+    const email = document.querySelector('#email').value;
+    
+    if (email.length > 0) {
+        player_info.email = email;
     }
-    localStorage.setItem(Date.now(),JSON.stringify(player))
+    
+    localStorage.setItem(Date.now(),JSON.stringify(player_info))
     location.reload()
    
 })
