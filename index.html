@@ -12,9 +12,7 @@
 <body>
     <div class="fixed text-white text-sm ml-2 mt-1 select-none"><span>Score:</span><span id="scoreEl">0</span></div>
 
-
-    <div class="fixed inset-0 flex items-center justify-center">
-      <div id="modalEl">
+    <div class="fixed inset-0 flex items-center justify-center" id="modalEl">
         <div class="login_container">
             <div class="login_left"></div>
             <div class="login_right">
@@ -51,42 +49,41 @@
                 </div>
             </div>
         </div>
-      </div>
-        <!-- <div class="bg-white max-w-md w-full p-8 text-center">
-            <h1 class="text-4xl font-bold leading-none hidden" id="bigScoreEl">0</h1>
-            <p class="text-sm text-gray-700 mb-4 hidden">Points</p>
-
-            <div>
-                <button class="bg-blue-500 text-white w-full py-3 rounded-full text-sm" id="startGameBtn">Start
-                    Game</button>
-            </div>
-            <img src="logo.jpg" alt="" class="mx-auto">
-            <p class="text-blue-700 font-semibold">İnovasyon Kulübü Web Takımı</p>
-        </div> -->
-        <div id="game_over">
-            <h1 id="player_name" class="mt-4"></h1>
-            <p id="player_score" class="mt-4"></p>
-            <label for="email" class="mt-4">Takımımız hakkında daha fazla bilgi almak ister misiniz?E-mailinizi yazın size ulaşalım</label>
-            <div class="mt-4">
-                <label class="block text-gray-700 text-sm font-semibold mb-2" for="email">
-                    Emailinizi girin: 
-                </label>
-                <input type="email" id="email" 
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-4">
-    
-                    <button
-                    class="w-full bg-[#0366ff] hover:bg-blue-700 text-white text-sm font-semibold p-4 rounded-xl focus:outline-none focus:shadow-outline"
-                    type="button" id="gameStartBtn">
-                    Oyun'a Başla
-                </button>
-            </div>
     </div>
-  
-        
-</div>
-   
+    <div class="fixed inset-0 flex items-center justify-center" id="game_over">
+        <div class="flex items-center flex-col">
+            <img src="./assets/images/inovasyon_logo.jpg" width="50%" alt="">
+            <h1 class="text-4xl font-bold mt-4">Web Takımına Katılmak İster Misin?</h1>
+        </div>
+        <div class="w-3/4">
+            <p class="mb-2">
+                Sevgili <strong id="player_name" class="text-[#013a88]"></strong> skorunuz <strong class="text-xl text-[#013a88]" id="player_score"></strong>, oyunumuzu oynadığınız için teşekkürler.
+                <strong class="text-[#013a88]">İnovasyon Kulübü Web Takımı</strong> olarak sizleri <u>takımımıza katılmaya davet etmek
+                    istiyoruz.</u>
+            </p>
+            <p>
+                Web tasarımı ve geliştirme konularında çalışıyoruz ve yenilikçi projelerde yer alıyoruz.
+                Siz de bizimle birlikte inovasyona katkıda bulunmak isterseniz, <u>bize e-mailinizi
+                    gönderebilirsiniz.</u>
+            </p>
+        </div>
+        <!-- <h3 class="mt-4 text-4xl font-semibold">Skor: <span id="player_score">100</span></h3> -->
+        <div class="w-3/4 mt-4">
+            <label class="block text-gray-700 font-semibold text-left" for="email">
+                Email Adresiniz
+            </label>
+            <input type="email" id="email"
+                class="shadow appearance-none border rounded w-full py-2 px-3 mb-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <button
+                class="w-full bg-[#0366ff] hover:bg-blue-700 text-white text-sm font-semibold p-4 rounded-xl focus:outline-none focus:shadow-outline"
+                type="button" id="gameStartBtn">
+                Oyun'a Başla
+            </button>
+        </div>
+    </div>
+
     <canvas></canvas>
-    
+
 
     <script src="https://cdn.tailwindcss.com"></script>
 
