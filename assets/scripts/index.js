@@ -257,11 +257,11 @@ function animate() {
             isOver=true
             game_over.style.display = "flex"
             player_info={
-                name:name_surname.value,
-                number:player_number.value,
-                score:score,
-                email:""
-               
+                id:Date.now(),
+                name: name_surname.value,
+                number: player_number.value,
+                score: score,
+                email: ""
             }
          
             player_name.innerHTML= name_surname.value;
@@ -341,12 +341,14 @@ window.addEventListener('click', (event) => {
 
 gameStart.addEventListener('click',()=> {
     const email = document.querySelector('#email').value;
+
+    player_info = { ...player_info, email: email };
     
-    if (email.length > 0) {
-        player_info.email = email;
-    }
+    let data = localStorage.getItem("data");
+    let playerData = data ? JSON.parse(data) : [];
     
-    localStorage.setItem(Date.now(),JSON.stringify(player_info))
+    playerData.push(player_info);
+    localStorage.setItem('data', JSON.stringify(playerData));
     location.reload()
    
 })
