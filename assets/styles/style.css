@@ -19,7 +19,7 @@ body {
 
 .login_container .login_left {
     width: 550px;
-    background-image: url("/assets/images/inovasyon_banner.jpeg");
+    background-image: url("../images/inovasyon_banner.jpeg");
     background-size: contain;
     background-repeat: no-repeat;
 }
