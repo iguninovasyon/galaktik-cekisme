@@ -17,6 +17,7 @@ const  player_name= document.querySelector('#player_name')
 const  player_email= document.querySelector('#email')
 
 const gameStart = document.querySelector('#gameStartBtn')
+const skorboard = document.querySelector("#skorboard")
 
 const audio = new Audio("assets/sounds/laser-sound.wav");
 const background = new Audio("assets/sounds/background.mp3")
@@ -57,8 +58,15 @@ function init() {
     projectiles = []
     enemies = []
     particles = []
-
-
+    let data = JSON.parse(localStorage.getItem("data"));
+    const scoreboardList = data.sort((a, b) => b.score - a.score).slice(0,5);
+    scoreboardList.map((item, index) => {
+        skorboard.innerHTML += `<div class="skorboard_player">
+        <span class="skorboard_player_index">${index + 1}.</span>
+        <span class="skorboard_player_name">${item.name}</span>
+        <span class="skorboard_player_score">${item.score}</span>
+    </div>`;
+    });
 }
 
 class Projectile {

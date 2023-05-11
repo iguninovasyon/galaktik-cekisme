@@ -52,3 +52,20 @@ body {
     margin: auto;
     
 }
+
+.skorboard {
+    background-color: rgb(255, 255, 255, .2);
+    border-radius: 5px;
+    padding: 1rem;
+    margin: 1rem 0rem;
+}
+.skorboard h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.skorboard .skorboard_player {
+    display: flex;
+    gap: 1rem;
+    padding: .5rem 0rem;
+}
